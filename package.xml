@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>ros_system_fingerprint</name>
+  <version>0.0.0</version>
+  <description>The ros_system_fingerprint package</description>
+  <maintainer email="davidvlu@gmail.com">David V. Lu!!</maintainer>
+  <license>BSD</license>
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>roslib</depend>
+  <depend>rosnode</depend>
+  <depend>rospy</depend>
+</package>
