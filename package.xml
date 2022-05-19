@@ -9,4 +9,5 @@
   <depend>roslib</depend>
   <depend>rosnode</depend>
   <depend>rospy</depend>
+  <exec_depend>python-git</exec_depend>
 </package>

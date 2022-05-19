@@ -4,6 +4,7 @@ import rospy
 import platform
 from rosnode import ID
 import roslib.scriptutil
+from .workspace import workspace
 
 master = roslib.scriptutil.get_master()
 
@@ -86,4 +87,4 @@ def topics():
     return {a: b for (a, b) in pub_topics}
 
 
-modules = [system, environmental_variables, parameters, nodes, topics]
+modules = [system, environmental_variables, parameters, nodes, topics, workspace]
