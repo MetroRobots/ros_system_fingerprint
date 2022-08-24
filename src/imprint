@@ -15,7 +15,10 @@ if __name__ == '__main__':
 
     D = {}
     for module in modules:
-        D[module.__name__] = module()
+        try:
+            D[module.__name__] = module()
+        except ConnectionRefusedError:
+            pass
 
     contents = yaml.safe_dump(D)
 
