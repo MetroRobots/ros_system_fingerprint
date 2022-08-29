@@ -1,5 +1,5 @@
 # ros_system_fingerprint
-## A simple tool for getting information about a system to share
+**A simple tool for getting information about a system to share**
 
 Let's say you're helping someone debug their system.
 You could ask them a bunch of questions, and get them to send you the output of various commands,
@@ -18,7 +18,8 @@ What sort of information is in this file?
     such as `ROS_DISTRO`, `ROS_VERSION`, etc.
  * Parameters (`parameters`) - A full dump of the ROS parameters.
  * Nodes (`nodes`) - The full rosgraph, i.e. every node and their publications, subscriptions and services.
- * Topics (`topics`) - Additional information about each available topic.
+ * Topics (`topics`) - The type of each available topic
+ * Services (`services`) - The type of each available service
  * ROS Workspace (`workspace`) - What build tool you're using, the workspace location,
     which repos you have checked out and what version they are on.
 

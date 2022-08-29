@@ -3,6 +3,7 @@ import os
 import rospy
 import platform
 from rosnode import ID
+from rosservice import get_service_headers
 import roslib.scriptutil
 from .workspace import workspace
 
@@ -21,6 +22,9 @@ def _succeed(args):
         return None
     else:
         return val
+
+
+state = _succeed(master.getSystemState(ID))
 
 
 def system():
@@ -52,8 +56,9 @@ def system():
 def environmental_variables():
     d = {}
     for k, v in os.environ.items():
-        if k.startswith('ROS_'):
-            d[k] = v
+        for prefix in ['ROS_']:
+            if k.startswith(prefix):
+                d[k] = v
     return d
 
 
@@ -63,7 +68,6 @@ def parameters():
 
 def nodes():
     d = {}
-    state = _succeed(master.getSystemState(ID))
     if not state:
         return d
     for name, info in zip(['pubs', 'subs', 'srvs'], state):
@@ -87,4 +91,13 @@ def topics():
     return {a: b for (a, b) in pub_topics}
 
 
-modules = [system, environmental_variables, parameters, nodes, topics, workspace]
+def services():
+    d = {}
+    for service_name, nodes in state[2]:
+        _, _, service_uri = master.lookupService('/rosservice', service_name)
+        headers = get_service_headers(service_name, service_uri)
+        d[service_name] = headers['type']
+    return d
+
+
+modules = [system, environmental_variables, parameters, nodes, topics, services, workspace]
