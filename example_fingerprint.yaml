@@ -1,11 +1,13 @@
+actions: {}
 environmental_variables:
-  ROS_DISTRO: noetic
-  ROS_ETC_DIR: /opt/ros/noetic/etc/ros
-  ROS_MASTER_URI: http://localhost:11311
-  ROS_PACKAGE_PATH: /home/dlu/catkin_ws/src/awesome_ros_package:/opt/ros/noetic/share
+  AMENT_PREFIX_PATH: /home/dlu/ros2_ws/install/awesome_ros_package:/opt/ros/foxy
+  COLCON_PREFIX_PATH: /home/dlu/Base/Foxy/install
+  RCUTILS_COLORIZED_OUTPUT: '1'
+  RCUTILS_CONSOLE_OUTPUT_FORMAT: '[{name}]: {message}'
+  ROS_DISTRO: foxy
+  ROS_LOCALHOST_ONLY: '0'
   ROS_PYTHON_VERSION: '3'
-  ROS_ROOT: /opt/ros/noetic/share/ros
-  ROS_VERSION: '1'
+  ROS_VERSION: '2'
 nodes:
   /joint_state_publisher:
     pubs:
@@ -24,17 +26,13 @@ parameters:
     - move_group/fake_controller_joint_states
   move_group:
     ...snip...
-  robot_description_semantic: "...snip..."
-  rosdistro: 'noetic
-
-    '
-  roslaunch:
-    uris:
-      host_thegoodplace__33271: http://thegoodplace:33271/
-  rosversion: '1.15.14
-
-    '
-  run_id: 6231f478-23ce-11ed-97d3-9b98145a64fc
+services:
+  /joint_state_publisher/describe_parameters: rcl_interfaces/srv/DescribeParameters
+  /joint_state_publisher/get_parameter_types: rcl_interfaces/srv/GetParameterTypes
+  /joint_state_publisher/get_parameters: rcl_interfaces/srv/GetParameters
+  /joint_state_publisher/list_parameters: rcl_interfaces/srv/ListParameters
+  /joint_state_publisher/set_parameters: rcl_interfaces/srv/SetParameters
+  /joint_state_publisher/set_parameters_atomically: rcl_interfaces/srv/SetParametersAtomically
 system:
   architecture: 64bit/ELF
   info: glibc/2.31
@@ -46,23 +44,22 @@ system:
   python_version: 3.8.10
   release: 5.17.5-76051705-generic
   system: Linux
-  time: 2022-08-24 13:01:43.991930
-  timestamp: 1661360503.99193
+  time: 2022-08-24 14:52:51.271711
+  timestamp: 1661367171.271711
   version: '#202204271406~1653440576~20.04~6277a18~dev-Ubuntu SMP PREEMPT Th'
 topics:
-  /joint_states: sensor_msgs/JointState
-  /rosout: rosgraph_msgs/Log
-  /rosout_agg: rosgraph_msgs/Log
-  /tf: tf2_msgs/TFMessage
-  /tf_static: tf2_msgs/TFMessage
+  /joint_states: sensor_msgs/msg/JointState
+  /rosout: rcl_interfaces/msg/Log
+  /tf: tf2_msgs/msg/TFMessage
+  /tf_static: tf2_msgs/msg/TFMessage
   /and_many_more: ...
 workspace:
-  build_tool: catkin_tools
-  folder: /home/dlu/catkin_ws
+  build_tool: colcon
+  folder: /home/dlu/ros2_ws
   repos:
     ros_system_fingerprint:
-      branch: noetic
+      branch: ros2
       folder: src/ros_system_fingerprint
-      hash: d10d08c023cdc907b4e98f0733cb73c895798447
+      hash: 89af9a776fe6f811d8c9527eb2cf2dcd6b61cbee
       remotes:
         origin: git@github.com:MetroRobots/ros_system_fingerprint.git
