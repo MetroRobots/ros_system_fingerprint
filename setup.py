@@ -9,7 +9,7 @@ setup(
         ('share/ros_system_fingerprint', ['package.xml']),
         ('share/ament_index/resource_index/packages', ['resource/ros_system_fingerprint']),
     ],
-    version='0.3.0',
+    version='0.4.0',
     description='The ros_system_fingerprint package',
     license='BSD 2-clause',
     maintainer='David V. Lu!!',
