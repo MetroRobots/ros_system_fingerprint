@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>ros_system_fingerprint</name>
+  <name>system_fingerprint</name>
   <version>0.4.0</version>
-  <description>The ros_system_fingerprint package</description>
+  <description>The system_fingerprint package</description>
   <maintainer email="davidvlu@gmail.com">David V. Lu!!</maintainer>
   <license>BSD 2-clause</license>
   <depend>rcl_interfaces</depend>

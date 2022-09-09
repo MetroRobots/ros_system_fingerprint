@@ -1,4 +1,4 @@
-# ros_system_fingerprint
+# system_fingerprint
 **A simple tool for getting information about a system to share**
 
 Let's say you're helping someone debug their system.
@@ -8,7 +8,7 @@ but that sounds tedious.
 Instead, have them install this package (`sudo apt-get install ros-$ROS_DISTRO-ros-system-fingerprint`)
 and then run a single command:
 
-    ros2 run ros_system_fingerprint imprint
+    ros2 run system_fingerprint imprint
 
 This will generate the file `fingerprint.yaml` which they can send to you for debugging.
 What sort of information is in this file?

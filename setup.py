@@ -3,16 +3,16 @@
 from setuptools import setup
 
 setup(
-    packages=['ros_system_fingerprint'],
+    packages=['system_fingerprint'],
     package_dir={'': 'src'},
     data_files=[
-        ('share/ros_system_fingerprint', ['package.xml']),
-        ('share/ament_index/resource_index/packages', ['resource/ros_system_fingerprint']),
+        ('share/system_fingerprint', ['package.xml']),
+        ('share/ament_index/resource_index/packages', ['resource/system_fingerprint']),
     ],
     version='0.4.0',
-    description='The ros_system_fingerprint package',
+    description='The system_fingerprint package',
     license='BSD 2-clause',
     maintainer='David V. Lu!!',
     maintainer_email='davidvlu@gmail.com',
-    entry_points={'console_scripts': ['imprint = ros_system_fingerprint.imprint:main']},
+    entry_points={'console_scripts': ['imprint = system_fingerprint.imprint:main']},
 )
