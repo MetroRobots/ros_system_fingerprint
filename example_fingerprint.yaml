@@ -60,7 +60,7 @@ workspace:
   build_tool: catkin_tools
   folder: /home/dlu/catkin_ws
   repos:
-    ros_system_fingerprint:
+    system_fingerprint:
       branch: noetic
       folder: src/ros_system_fingerprint
       hash: d10d08c023cdc907b4e98f0733cb73c895798447

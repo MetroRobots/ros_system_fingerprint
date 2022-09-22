@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from ros_system_fingerprint.imprint import main
+from system_fingerprint.imprint import main
 
 if __name__ == '__main__':
     main()
