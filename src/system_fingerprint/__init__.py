@@ -8,6 +8,7 @@ import roslib.scriptutil
 from .workspace import workspace
 
 master = roslib.scriptutil.get_master()
+state = None
 
 specific_platform_methods = {
     'Linux': platform.libc_ver,
@@ -24,7 +25,11 @@ def _succeed(args):
         return val
 
 
-state = _succeed(master.getSystemState(ID))
+def get_state():
+    global state
+    if not state:
+        state = _succeed(master.getSystemState(ID))
+    return state
 
 
 def system():
@@ -68,6 +73,7 @@ def parameters():
 
 def nodes():
     d = {}
+    state = get_state()
     if not state:
         return d
     for name, info in zip(['pubs', 'subs', 'srvs'], state):
@@ -93,6 +99,9 @@ def topics():
 
 def services():
     d = {}
+    state = get_state()
+    if not state:
+        return d
     for service_name, nodes in state[2]:
         _, _, service_uri = master.lookupService('/rosservice', service_name)
         headers = get_service_headers(service_name, service_uri)
