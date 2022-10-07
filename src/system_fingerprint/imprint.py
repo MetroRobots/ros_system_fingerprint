@@ -2,7 +2,7 @@ import argparse
 import pathlib
 import yaml
 
-from ros_system_fingerprint import modules
+from system_fingerprint import modules
 
 
 def main():
