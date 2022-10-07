@@ -13,6 +13,8 @@ def main():
                         nargs='?', default='fingerprint.yaml')
     args = parser.parse_args()
 
+    raise RuntimeError('just to make sure that the CI is running, throw an exception')
+
     D = {}
     for module in modules:
         try:
