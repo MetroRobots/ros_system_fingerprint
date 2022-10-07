@@ -5,7 +5,7 @@ Let's say you're helping someone debug their system.
 You could ask them a bunch of questions, and get them to send you the output of various commands,
 but that sounds tedious.
 
-Instead, have them install this package (`sudo apt-get install ros-$ROS_DISTRO-ros-system-fingerprint`)
+Instead, have them install this package (`sudo apt-get install ros-$ROS_DISTRO-system-fingerprint`)
 and then run a single command:
 
     ros2 run system_fingerprint imprint
