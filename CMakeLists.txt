@@ -13,3 +13,9 @@ include_directories()
 catkin_install_python(PROGRAMS src/imprint
                       DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
+
+
+if(CATKIN_ENABLE_TESTING)
+  find_package(rosunit REQUIRED)
+  catkin_add_nosetests(test/test_basic.py)
+endif()
