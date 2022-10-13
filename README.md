@@ -1,6 +1,8 @@
 # system_fingerprint
 **A simple tool for getting information about a system to share**
 
+Note: This is the documentation for ROS 1. [Click here for ROS 2](https://github.com/MetroRobots/ros_system_fingerprint/tree/ros2)
+
 Let's say you're helping someone debug their system.
 You could ask them a bunch of questions, and get them to send you the output of various commands,
 but that sounds tedious.

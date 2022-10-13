@@ -11,4 +11,5 @@
   <depend>rospy</depend>
   <depend>rosservice</depend>
   <exec_depend>python3-git</exec_depend>
+  <test_depend>rostest</test_depend>
 </package>
