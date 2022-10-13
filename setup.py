@@ -15,4 +15,5 @@ setup(
     maintainer='David V. Lu!!',
     maintainer_email='davidvlu@gmail.com',
     entry_points={'console_scripts': ['imprint = system_fingerprint.imprint:main']},
+    tests_require=['pytest'],
 )
