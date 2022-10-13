@@ -1,16 +1,19 @@
+#!/usr/bin/env python3
 import pathlib
+import unittest
 from system_fingerprint.imprint import main
 
 
-def test_basic_smoke():
-    """Run main, hope for no errors"""
-    main([])
+class TestBasic(unittest.TestCase):
+    def test_basic_smoke(self):
+        """Run main, hope for no errors"""
+        main([])
 
-    output_file = pathlib.Path('fingerprint.yaml')
-    if output_file.exists():
-        output_file.unlink()
+        output_file = pathlib.Path('fingerprint.yaml')
+        if output_file.exists():
+            output_file.unlink()
 
 
 if __name__ == '__main__':
-    import rosunit
-    rosunit.unitrun('system_fingerprint', 'test_basic_smoke')
+    import rostest
+    rostest.rosrun('system_fingerprint', 'test_smoke', TestBasic)

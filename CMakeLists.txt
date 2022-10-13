@@ -16,6 +16,6 @@ catkin_install_python(PROGRAMS src/imprint
 
 
 if(CATKIN_ENABLE_TESTING)
-  find_package(rosunit REQUIRED)
-  catkin_add_nosetests(test/test_basic.py)
+  find_package(rostest REQUIRED)
+  add_rostest(test/basic.test)
 endif()
