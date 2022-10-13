@@ -9,7 +9,7 @@ setup(
         ('share/system_fingerprint', ['package.xml']),
         ('share/ament_index/resource_index/packages', ['resource/system_fingerprint']),
     ],
-    version='0.6.0',
+    version='0.7.0',
     description='The system_fingerprint package',
     license='BSD 2-clause',
     maintainer='David V. Lu!!',

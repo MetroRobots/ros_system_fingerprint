@@ -2,7 +2,7 @@
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
   <name>system_fingerprint</name>
-  <version>0.6.0</version>
+  <version>0.7.0</version>
   <description>The system_fingerprint package</description>
   <maintainer email="davidvlu@gmail.com">David V. Lu!!</maintainer>
   <license>BSD 2-clause</license>
