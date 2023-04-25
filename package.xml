@@ -12,6 +12,7 @@
   <depend>ros2cli</depend>
   <depend>ros2node</depend>
   <depend>ros2param</depend>
+  <depend>ros2service</depend>
   <depend>ros2topic</depend>
   <exec_depend>python3-git</exec_depend>
   <export>
