@@ -17,8 +17,8 @@ repos:
   - id: double-quote-string-fixer
   - id: requirements-txt-fixer
   - id: check-shebang-scripts-are-executable
-  - id: check-xml
   - id: check-yaml
+  - id: check-xml
 - repo: https://github.com/pre-commit/mirrors-autopep8
   rev: v2.0.2
   hooks:
@@ -28,8 +28,9 @@ repos:
   hooks:
   - id: flake8
 - repo: https://github.com/codespell-project/codespell
-  rev: v2.2.4
+  rev: v2.2.5
   hooks:
   - id: codespell
     args: ['--write-changes']
-autoupdate_schedule: quarterly
+ci:
+  autoupdate_schedule: quarterly
