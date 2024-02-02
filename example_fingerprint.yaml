@@ -53,6 +53,27 @@ topics:
   /tf: tf2_msgs/msg/TFMessage
   /tf_static: tf2_msgs/msg/TFMessage
   /and_many_more: ...
+topics_qos:
+  /joint_states:
+    pub:
+      /joint_state_publisher:
+        deadline: infinite
+        durability: volatile
+        history: unknown
+        lifespan: infinite
+        liveliness: automatic
+        liveliness lease duration: infinite
+        reliability: reliable
+    sub:
+      /robot_state_publisher:
+        deadline: infinite
+        durability: volatile
+        history: unknown
+        lifespan: infinite
+        liveliness: automatic
+        liveliness lease duration: infinite
+        reliability: reliable
+  /other_topics_qos: ...
 workspace:
   build_tool: colcon
   folder: /home/dlu/ros2_ws

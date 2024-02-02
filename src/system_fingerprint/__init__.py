@@ -1,7 +1,9 @@
 import datetime
 import os
+import re
 import platform
 import rclpy
+from rclpy.qos import QoSHistoryPolicy
 from rcl_interfaces.srv import ListParameters, GetParameters
 from ros2action.api import get_action_names_and_types
 from ros2cli.node.strategy import NodeStrategy
@@ -14,6 +16,8 @@ from ros2service.api import get_service_names_and_types
 from ros2topic.api import get_topic_names_and_types
 
 from .workspace import workspace
+
+RMW_PATTERN = re.compile(r'RMW_QOS_POLICY_[A-Z]+_(.*)$')
 
 main_node = NodeStrategy({}).__enter__()
 
@@ -143,4 +147,54 @@ def actions():
     return _get_type_dict(get_action_names_and_types)
 
 
-modules = [system, environmental_variables, parameters, nodes, topics, services, actions, workspace]
+def _format_duration(d):
+    # This is not implemented in older distros
+    if d.nanoseconds == 2147483651294967295:
+        return 'infinite'
+    else:
+        return str(d)
+
+
+def _format_enum(v):
+    # I just like readable strings, okay?
+    m = RMW_PATTERN.match(v.name)
+    if m:
+        return m.group(1).replace('_', ' ').lower()
+    else:
+        return v.name
+
+
+def _format_qos(profile):
+    qos = {}
+
+    qos['reliability'] = _format_enum(profile.reliability)
+    qos['history'] = _format_enum(profile.history)
+    if profile.history.value == QoSHistoryPolicy.KEEP_LAST:
+        qos['history depth'] = profile.depth
+    qos['durability'] = _format_enum(profile.durability)
+    qos['lifespan'] = _format_duration(profile.lifespan)
+    qos['deadline'] = _format_duration(profile.deadline)
+    qos['liveliness'] = _format_enum(profile.liveliness)
+    qos['liveliness lease duration'] = _format_duration(profile.liveliness_lease_duration)
+
+    return qos
+
+
+def topics_qos():
+    topic_dict = {}
+    for topic_name, topic_types in get_topic_names_and_types(node=main_node, include_hidden_topics=True):
+        info = {}
+        for key, method in [('pub', main_node.get_publishers_info_by_topic),
+                            ('sub', main_node.get_subscriptions_info_by_topic)]:
+            info[key] = {}
+            for endpoint in method(topic_name):
+                e_info = _format_qos(endpoint.qos_profile)
+                if len(topic_types) > 1 or True:
+                    info[key]['type'] = endpoint.topic_type
+                info[key][endpoint.node_namespace + endpoint.node_name] = e_info
+
+        topic_dict[topic_name] = info
+    return topic_dict
+
+
+modules = [system, environmental_variables, parameters, nodes, topics, services, actions, topics_qos, workspace]

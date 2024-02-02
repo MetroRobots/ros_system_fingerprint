@@ -21,6 +21,7 @@ What sort of information is in this file?
  * Topics (`topics`) - The type of each available topic
  * Services (`services`) - The type of each available service
  * Actions (`actions`) - The type of each available action
+ * Topics QOS (`topics_qos`) - The QoS used by each pub/sub for each node
  * ROS Workspace (`workspace`) - What build tool you're using, the workspace location,
     which repos you have checked out and what version they are on.
 
