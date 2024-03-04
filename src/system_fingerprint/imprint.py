@@ -9,12 +9,15 @@ from system_fingerprint import modules
 def main(argv=None):
     parser = argparse.ArgumentParser()
     parser.add_argument('-p', '--print', action='store_true')
+    parser.add_argument('-q', '--include-qos', action='store_true')
     parser.add_argument('output_path', type=pathlib.Path,
                         nargs='?', default='fingerprint.yaml')
     args = parser.parse_args(argv)
 
     D = {}
     for module in modules:
+        if module.__name__ == 'topics_qos' and not args.include_qos:
+            continue
         try:
             D[module.__name__] = module()
         except Exception as e:
