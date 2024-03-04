@@ -49,7 +49,10 @@ def workspace():
         repo = git.Repo(repo_folder)
         rd['remotes'] = {rem.name: rem.url for rem in repo.remotes}
         rd['hash'] = repo.head.object.hexsha
-        rd['branch'] = repo.active_branch.name
+        try:
+            rd['branch'] = repo.active_branch.name
+        except TypeError:
+            rd['branch'] = None
         rd['folder'] = str(repo_folder.relative_to(workspace_root))
 
         d['repos'][repo_folder.stem] = rd
