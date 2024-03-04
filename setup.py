@@ -14,6 +14,11 @@ setup(
     license='BSD 2-clause',
     maintainer='David V. Lu!!',
     maintainer_email='davidvlu@gmail.com',
-    entry_points={'console_scripts': ['imprint = system_fingerprint.imprint:main']},
+    entry_points={
+        'console_scripts': [
+            'imprint = system_fingerprint.imprint:main',
+            'visualize = system_fingerprint.visualize:main',
+        ]
+    },
     tests_require=['pytest'],
 )
