@@ -1,6 +1,6 @@
 repos:
 - repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: v4.5.0
+  rev: v4.6.0
   hooks:
   - id: check-added-large-files
   - id: check-case-conflict
@@ -20,15 +20,15 @@ repos:
   - id: check-yaml
   - id: check-xml
 - repo: https://github.com/hhatto/autopep8
-  rev: v2.1.0
+  rev: v2.3.1
   hooks:
   - id: autopep8
 - repo: https://github.com/PyCQA/flake8
-  rev: 7.0.0
+  rev: 7.1.0
   hooks:
   - id: flake8
 - repo: https://github.com/codespell-project/codespell
-  rev: v2.2.6
+  rev: v2.3.0
   hooks:
   - id: codespell
     args: ['--write-changes']
