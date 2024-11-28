@@ -2,6 +2,8 @@ import datetime
 import os
 import platform
 import rclpy
+from rclpy.qos import QoSProfile, QoSDurabilityPolicy
+from rclpy.time import Time
 from rcl_interfaces.srv import ListParameters, GetParameters
 from ros2action.api import get_action_names_and_types
 from ros2cli.node.strategy import NodeStrategy
@@ -12,6 +14,8 @@ from ros2node.api import get_publisher_info, get_subscriber_info
 from ros2param.api import get_value
 from ros2service.api import get_service_names_and_types
 from ros2topic.api import get_topic_names_and_types
+from tf2_msgs.msg import TFMessage
+import time
 
 from .workspace import workspace
 
@@ -143,4 +147,85 @@ def actions():
     return _get_type_dict(get_action_names_and_types)
 
 
-modules = [system, environmental_variables, parameters, nodes, topics, services, actions, workspace]
+def tf_tree(listen_duration=5.0):
+    frame_names = set()
+    latest = {}
+    start = {}
+    counts = {}
+    static_keys = set()
+
+    def tf_callback(msg, static=False):
+        for transform in msg.transforms:
+            frame_names.add(transform.header.frame_id)
+            frame_names.add(transform.child_frame_id)
+
+            key = transform.header.frame_id, transform.child_frame_id
+            latest[key] = transform
+            if key in counts:
+                counts[key] += 1
+            else:
+                counts[key] = 1
+                start[key] = transform.header.stamp
+
+            if static:
+                static_keys.add(key)
+
+    tf_sub = main_node.create_subscription(TFMessage, '/tf', tf_callback, 10)
+    latching_qos = QoSProfile(depth=1, durability=QoSDurabilityPolicy.TRANSIENT_LOCAL)
+
+    static_sub = main_node.create_subscription(TFMessage, '/tf_static',
+                                               lambda msg: tf_callback(msg, True),
+                                               latching_qos)
+
+    t0 = time.time()
+    while time.time() < t0 + listen_duration:
+        rclpy.spin_once(main_node, timeout_sec=listen_duration)
+
+    tf_sub.destroy()
+    static_sub.destroy()
+
+    parentless = set(frame_names)
+    for key in latest:
+        parentless.remove(key[1])
+
+    info = {}
+    queue = []
+
+    for frame in parentless:
+        queue.append((frame, info, None))
+
+    while queue:
+        frame, d, parent_frame = queue.pop(0)
+        f_info = {}
+
+        for parent, child in latest:
+            if parent == frame:
+                queue.append((child, f_info, frame))
+
+        key = parent_frame, frame
+        if key in static_keys:
+            f_info['static'] = True
+        elif key in counts:
+            stats = {}
+            f_info['stats'] = stats
+            stats['count'] = counts[key]
+
+            start_t = Time.from_msg(start[key])
+            end_t = Time.from_msg(latest[key].header.stamp)
+            stats['window'] = round((end_t - start_t).nanoseconds / 1e9, 3)
+            stats['freq'] = round(stats['count'] / stats['window'], 3)
+
+        if key in latest:
+            for field, subfields in [('translation', 'xyz'), ('rotation', 'xyzw')]:
+                value = getattr(latest[key].transform, field)
+
+                f_info[field] = {}
+                for subfield in subfields:
+                    f_info[field][subfield] = getattr(value, subfield)
+
+        d[frame] = f_info
+
+    return info
+
+
+modules = [system, environmental_variables, parameters, nodes, topics, services, actions, workspace, tf_tree]

@@ -21,6 +21,7 @@ What sort of information is in this file?
  * Topics (`topics`) - The type of each available topic
  * Services (`services`) - The type of each available service
  * Actions (`actions`) - The type of each available action
+ * TF Tree (`tf_tree`) - The TF frames at the time of the imprint, with their geometry, frequency and whether they are static.
  * ROS Workspace (`workspace`) - What build tool you're using, the workspace location,
     which repos you have checked out and what version they are on.
 
