@@ -13,7 +13,7 @@ setup(
     description='The system_fingerprint package',
     license='BSD 2-clause',
     maintainer='David V. Lu!!',
-    maintainer_email='davidvlu@gmail.com',
+    maintainer_email='david@metrorobots.com',
     entry_points={'console_scripts': ['imprint = system_fingerprint.imprint:main']},
     tests_require=['pytest'],
 )
